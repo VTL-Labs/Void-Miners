@@ -1,2 +1,2 @@
-# Void-Minerd
+# Void-Miners
 Godot game
