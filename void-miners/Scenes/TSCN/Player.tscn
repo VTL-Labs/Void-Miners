@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68pkx"]
 size = Vector2(14, 27)
 
-[node name="Player" type="CharacterBody2D" unique_id=328049244]
+[node name="Player" type="CharacterBody2D" unique_id=328049244 groups=["Player"]]
 scale = Vector2(5, 5)
 script = ExtResource("1_ncam7")
 stamina_decrease = 20.0

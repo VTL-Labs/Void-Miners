@@ -9,10 +9,18 @@ extends CharacterBody2D
 @export var stamina_decrease : float = 5.0
 @export var stamina_reg : float = 5.0
 
+@export_group("Health")
+@export var max_health : float = 100
+
 var stamina : float
+var health : float
 
 func _ready() -> void:
 	stamina = stamina_max
+	health = max_health
+	
+	$"../CanvasLayer/HealthBar".value = health
+	$"../CanvasLayer/StaminaBar".value = stamina
 
 func _physics_process(delta: float) -> void:
 	handle_stamina(delta)
@@ -25,7 +33,8 @@ func handle_stamina(delta: float) -> void:
 		stamina += stamina_reg * delta
 
 	stamina = clampf(stamina, 0.0, stamina_max)
-
+	
+	$"../CanvasLayer/StaminaBar".value = stamina
 
 func handle_movement() -> void:
 	var direction : Vector2 = Input.get_vector(
@@ -39,3 +48,22 @@ func handle_movement() -> void:
 
 	velocity = direction * current_speed
 	move_and_slide()
+	
+func take_damage(damage : float):
+	health -= damage
+	update_health()
+	
+func heal(health_gain):
+	health += health_gain
+	update_health()
+	
+func update_health():
+	$"../CanvasLayer/HealthBar".value = health
+	health = clampf(health, 0, max_health)
+
+func _on_area_2d_body_entered(_body: Node2D) -> void:
+	take_damage(10)
+
+
+func _on_area_2d_2_body_entered(_body: Node2D) -> void:
+	heal(10)

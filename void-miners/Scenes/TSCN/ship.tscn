@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cqekbssqpuikh" path="res://icon.svg" id="1_356p0"]
 [ext_resource type="PackedScene" uid="uid://q5scrll04akf" path="res://Scenes/TSCN/Player.tscn" id="2_3ekp0"]
+[ext_resource type="PackedScene" uid="uid://bokm3crb3h6p6" path="res://Scenes/TSCN/gegner.tscn" id="3_3ekp0"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_am7si"]
 
@@ -10,6 +11,12 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iy1rf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h3goq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_am7si"]
+size = Vector2(247, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy1rf"]
+size = Vector2(222, 132)
 
 [node name="Ship" type="Node2D" unique_id=1675180371]
 
@@ -47,3 +54,47 @@ position = Vector2(1152, 0)
 rotation = 3.1415927
 scale = Vector2(5.76, 1)
 shape = SubResource("WorldBoundaryShape2D_h3goq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=196802675]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer" unique_id=126113389]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -45.0
+offset_right = 109.0
+offset_bottom = -8.0
+grow_vertical = 0
+value = 100.0
+
+[node name="StaminaBar" type="ProgressBar" parent="CanvasLayer" unique_id=2064657345]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -81.0
+offset_right = 40.0
+offset_bottom = -54.0
+grow_vertical = 0
+value = 100.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1110818014]
+position = Vector2(236, 1165)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=394690268]
+position = Vector2(-110.5, 112)
+shape = SubResource("RectangleShape2D_am7si")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=998226149]
+position = Vector2(2116, 1221)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=635748287]
+position = Vector2(-13, 56)
+shape = SubResource("RectangleShape2D_iy1rf")
+
+[node name="Gegner" parent="." unique_id=2129297205 instance=ExtResource("3_3ekp0")]
+position = Vector2(188.99998, 258.99997)
+
+[connection signal="body_entered" from="Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="Player" method="_on_area_2d_2_body_entered"]
