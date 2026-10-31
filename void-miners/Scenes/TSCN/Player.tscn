@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://q5scrll04akf"]
+
+[ext_resource type="Script" uid="uid://dwhatx6hqlf15" path="res://Scenes/GD/player.gd" id="1_ncam7"]
+[ext_resource type="Texture2D" uid="uid://yv7tq15vutp4" path="res://Graphics/Player/Turtle.png" id="2_kyqiw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68pkx"]
+size = Vector2(14, 27)
+
+[node name="Player" type="CharacterBody2D" unique_id=328049244]
+scale = Vector2(5, 5)
+script = ExtResource("1_ncam7")
+stamina_decrease = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542072854]
+texture_filter = 1
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_68pkx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=527006194]
+texture = ExtResource("2_kyqiw")
+hframes = 32
+vframes = 3
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1186252356]
+limit_left = 0
+limit_top = 0
+limit_right = 2215
+limit_bottom = 1340
+position_smoothing_enabled = true

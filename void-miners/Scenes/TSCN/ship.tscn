@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dtfd2w2igab3l"]
+
+[ext_resource type="Texture2D" uid="uid://cqekbssqpuikh" path="res://icon.svg" id="1_356p0"]
+[ext_resource type="PackedScene" uid="uid://q5scrll04akf" path="res://Scenes/TSCN/Player.tscn" id="2_3ekp0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_am7si"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_68pkx"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iy1rf"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h3goq"]
+
+[node name="Ship" type="Node2D" unique_id=1675180371]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1786448407]
+position = Vector2(1106.5, 670.50006)
+scale = Vector2(17.273438, 10.460938)
+texture = ExtResource("1_356p0")
+
+[node name="Player" parent="." unique_id=328049244 instance=ExtResource("2_3ekp0")]
+position = Vector2(485, 257)
+
+[node name="Borders" type="Node2D" parent="." unique_id=1204766250]
+
+[node name="BordersColl" type="StaticBody2D" parent="Borders" unique_id=1999558643]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BordersColl" unique_id=1677765920]
+position = Vector2(0, 647)
+rotation = 1.5707964
+scale = Vector2(4, 1)
+shape = SubResource("WorldBoundaryShape2D_am7si")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders/BordersColl" unique_id=2113323584]
+position = Vector2(2215, 635)
+rotation = -1.5707964
+scale = Vector2(7.5468984, 1)
+shape = SubResource("WorldBoundaryShape2D_68pkx")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Borders/BordersColl" unique_id=503821635]
+position = Vector2(1129, 1343)
+scale = Vector2(12.36, 1)
+shape = SubResource("WorldBoundaryShape2D_iy1rf")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders/BordersColl" unique_id=1444105011]
+position = Vector2(1152, 0)
+rotation = 3.1415927
+scale = Vector2(5.76, 1)
+shape = SubResource("WorldBoundaryShape2D_h3goq")
