@@ -115,11 +115,8 @@ func _on_area_2d_2_body_entered(_body: Node2D) -> void:
 	heal(10)
 		
 func _on_detection_area_area_entered(area: Area2D) -> void:
-	print("Detected: ", area.name)
-	print("Is enemy: ", area.is_in_group("Enemies"))
 	if area.is_in_group("Enemies"):
 		current_target = area
-		print("Target assigned: ", current_target.name)
 
 func _on_detection_area_area_exited(area: Area2D) -> void:
 	if area == current_target:

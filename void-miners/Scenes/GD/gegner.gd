@@ -18,8 +18,8 @@ func _physics_process(delta: float) -> void:
 		
 func enemy_take_damage(amount : float):
 	health -= amount
-	print("took damage")
 	if health <= 0:
+		Global.score += 1
 		queue_free()
 		
 func _on_body_entered(body: Node2D) -> void:
