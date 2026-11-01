@@ -6,24 +6,45 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68pkx"]
 size = Vector2(14, 27)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_68pkx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68pkx"]
+radius = 24.645521
+
 [node name="Player" type="CharacterBody2D" unique_id=328049244 groups=["Player"]]
 scale = Vector2(5, 5)
 script = ExtResource("1_ncam7")
 stamina_decrease = 20.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542072854]
+[node name="PlayerHitbox" type="CollisionShape2D" parent="." unique_id=1542072854]
 texture_filter = 1
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_68pkx")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=527006194]
+[node name="PlayerImage" type="Sprite2D" parent="." unique_id=527006194]
 texture = ExtResource("2_kyqiw")
 hframes = 32
 vframes = 3
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1186252356]
+[node name="PlayerCamera" type="Camera2D" parent="." unique_id=1186252356]
 limit_left = 0
 limit_top = 0
 limit_right = 2215
 limit_bottom = 1340
 position_smoothing_enabled = true
+
+[node name="PlayerAttackArea" type="Area2D" parent="." unique_id=1138156276]
+
+[node name="AttackShape" type="CollisionShape2D" parent="PlayerAttackArea" unique_id=1088427612]
+shape = SubResource("CapsuleShape2D_68pkx")
+disabled = true
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1815849795]
+scale = Vector2(1.1200001, 1.1040001)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=350792703]
+shape = SubResource("CircleShape2D_68pkx")
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

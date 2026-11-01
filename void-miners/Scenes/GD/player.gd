@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var attack_area = $PlayerAttackArea
+@onready var detection_area = $DetectionArea
+@onready var sprite = $PlayerImage
+
 @export_group("Movement")
 @export var walk_speed : float = 200.0
 @export var sprint_speed : float = 500.0
@@ -14,6 +18,9 @@ extends CharacterBody2D
 
 var stamina : float
 var health : float
+var attack_damage : float = 5
+var can_attack : bool = true
+var current_target = null
 
 func _ready() -> void:
 	stamina = stamina_max
@@ -25,6 +32,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	handle_stamina(delta)
 	handle_movement()
+	handle_attack()
 
 func handle_stamina(delta: float) -> void:
 	if Input.is_action_pressed("sprint") and stamina > 0:
@@ -60,10 +68,60 @@ func heal(health_gain):
 func update_health():
 	$"../CanvasLayer/HealthBar".value = health
 	health = clampf(health, 0, max_health)
+	
+	if health <= 0:
+		queue_free()
+	
+func update_target_direction():
+	if current_target == null:
+		return
+		
+	var direction = global_position.direction_to(current_target.global_position)
+	
+	sprite.rotation = direction.angle()
+	
+func attack():
+	if not can_attack:
+		return
+		
+	can_attack = false
+	
+	attack_area.monitoring = true
+
+	await get_tree().physics_frame
+	
+	for area in detection_area.get_overlapping_areas():
+		print("Attacked")
+		if area.has_method("enemy_take_damage"):
+			area.enemy_take_damage(attack_damage)
+			
+	await get_tree().create_timer(0.3).timeout
+	
+	attack_area.monitoring = false
+	await get_tree().create_timer(0.3).timeout
+	
+	can_attack = true
+	
+func handle_attack():
+	if current_target != null:
+		update_target_direction()
+	
+		if can_attack:
+			attack()
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	take_damage(10)
 
-
 func _on_area_2d_2_body_entered(_body: Node2D) -> void:
 	heal(10)
+		
+func _on_detection_area_area_entered(area: Area2D) -> void:
+	print("Detected: ", area.name)
+	print("Is enemy: ", area.is_in_group("Enemies"))
+	if area.is_in_group("Enemies"):
+		current_target = area
+		print("Target assigned: ", current_target.name)
+
+func _on_detection_area_area_exited(area: Area2D) -> void:
+	if area == current_target:
+		current_target = null

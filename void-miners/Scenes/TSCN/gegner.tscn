@@ -6,8 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am7si"]
 size = Vector2(12.6, 9.000001)
 
-[node name="Gegner" type="Area2D" unique_id=1181118266]
+[node name="Enemy" type="Area2D" unique_id=1181118266 groups=["Enemies"]]
 scale = Vector2(5, 5)
+collision_layer = 2
 script = ExtResource("1_rk3tt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2048246952]
