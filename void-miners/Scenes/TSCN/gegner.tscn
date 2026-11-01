@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bokm3crb3h6p6"]
 
 [ext_resource type="Texture2D" uid="uid://c88oulvyojabr" path="res://Graphics/Top Down Slime Enemy/TopDownSlimeSprites.png" id="1_hftex"]
-[ext_resource type="Script" uid="uid://cpgw7gf7koqfp" path="res://Scenes/TSCN/gegner.gd" id="1_rk3tt"]
+[ext_resource type="Script" uid="uid://cpgw7gf7koqfp" path="res://Scenes/GD/gegner.gd" id="1_rk3tt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am7si"]
 size = Vector2(12.6, 9.000001)
