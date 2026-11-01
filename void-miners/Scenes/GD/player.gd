@@ -91,7 +91,6 @@ func attack():
 	await get_tree().physics_frame
 	
 	for area in detection_area.get_overlapping_areas():
-		print("Attacked")
 		if area.has_method("enemy_take_damage"):
 			area.enemy_take_damage(attack_damage)
 			
