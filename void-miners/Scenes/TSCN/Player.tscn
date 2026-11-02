@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwhatx6hqlf15" path="res://Scenes/GD/player.gd" id="1_ncam7"]
 [ext_resource type="Texture2D" uid="uid://yv7tq15vutp4" path="res://Graphics/Player/Turtle.png" id="2_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://c77gm1awnuqke" path="res://Graphics/Player/sword_bow_arrow_sprites/sword.png" id="3_3rind"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68pkx"]
 size = Vector2(14, 27)
@@ -11,10 +12,48 @@ size = Vector2(14, 27)
 [sub_resource type="CircleShape2D" id="CircleShape2D_68pkx"]
 radius = 24.645521
 
+[sub_resource type="Animation" id="Animation_3rind"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_h46lh"]
+resource_name = "sword_attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03333334, 0.06666668, 0.099999994, 0.13333336, 0.16666669, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.2617993877991494, 0.5235987755982988, 0.7853981633974483, 1.0471975511965976, 1.3089969389957472, 1.5707963267948966]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ocxqq"]
+_data = {
+&"RESET": SubResource("Animation_3rind"),
+&"sword_attack": SubResource("Animation_h46lh")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=328049244 groups=["Player"]]
 scale = Vector2(5, 5)
 script = ExtResource("1_ncam7")
 stamina_decrease = 20.0
+offset = Vector2(15, 15)
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="." unique_id=1542072854]
 texture_filter = 1
@@ -45,6 +84,13 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=350792703]
 shape = SubResource("CircleShape2D_68pkx")
+
+[node name="Weapon" type="Sprite2D" parent="." unique_id=1614790025]
+scale = Vector2(0.381, 0.5)
+texture = ExtResource("3_3rind")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=957812400]
+libraries/ = SubResource("AnimationLibrary_ocxqq")
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

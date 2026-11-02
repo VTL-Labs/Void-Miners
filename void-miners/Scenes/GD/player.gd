@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var attack_area = $PlayerAttackArea
 @onready var detection_area = $DetectionArea
-@onready var sprite = $PlayerImage
+@onready var sprite = $Weapon
 
 @export_group("Movement")
 @export var walk_speed : float = 200.0
@@ -16,9 +16,12 @@ extends CharacterBody2D
 @export_group("Health")
 @export var max_health : float = 100
 
+@export_group("Attack")
+@export var attack_damage : float = 5
+@export var offset : Vector2 = Vector2(1, 0)
+
 var stamina : float
 var health : float
-var attack_damage : float = 5
 var can_attack : bool = true
 var current_target = null
 
@@ -79,6 +82,8 @@ func update_target_direction():
 	var direction = global_position.direction_to(current_target.global_position)
 	
 	sprite.rotation = direction.angle()
+	sprite.position = direction * offset
+	$AnimationPlayer.current_animation = "sword_attack"
 	
 func attack():
 	if not can_attack:
